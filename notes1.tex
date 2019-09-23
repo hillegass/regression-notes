@@ -69,11 +69,11 @@ pdfsubject={Compilation of useful shortcuts}
 %	HEADING ONE
 %----------------------------------------------------------------------------------------
 
-\paragraph{Regression} Let's say a given system has $p$ inputs and one output. Looking at the the historical inputs $\{ x_1, \ldots, x_n \}$ (each might be a vector) and the corresponding outputs $\{ y_1, \ldots, y_n \}$, we would like to make a guess what $y_i$ will be for an a new $x_i$.
+\paragraph{Regression} Let's say a given system has $p$ inputs and one output. Looking at the the historical inputs $\{ x_1, \ldots, x_n \}$ and the corresponding outputs $\{ y_1, \ldots, y_n \}$, we would like to make a guess what $y_i$ will be for an a new $x_i$.
 
 \paragraph{Simple Linear Regression} In simple linear regression, there is only one input and our guess of $y_i$ will be given by the following:
 \begin{equation*}
-y_i = \beta_0 \beta_1 x_i + \epsilon_i 
+y_i = \beta_0  + \beta_1 x_i + \epsilon_i 
 \end{equation*}
 Where $E(\epsilon_i) = 0$ and the variance of $\epsilon$ is $\sigma_2$.
 
