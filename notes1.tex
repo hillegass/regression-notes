@@ -1,0 +1,231 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cheatsheet
+% LaTeX Template
+% Version 1.0 (12/12/15)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Michael Müller (https://github.com/cmichi/latex-template-collection) with
+% extensive modifications by Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% The MIT License (see included LICENSE file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{scrartcl} % 11pt font size
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage[margin=0pt, landscape]{geometry} % Page margins and orientation
+
+\usepackage{graphicx} % Required for including images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{parskip}
+\usepackage{color} % Required for color customization
+\definecolor{mygray}{gray}{.75} % Custom color
+
+\usepackage{url} % Required for the \url command to easily display URLs
+
+\usepackage[ % This block contains information used to annotate the PDF
+colorlinks=false, 
+pdftitle={Cheatsheet}, 
+pdfauthor={Aaron Hillegass}, 
+pdfsubject={Compilation of useful shortcuts}
+]{hyperref}
+
+\setlength{\unitlength}{1mm} % Set the length that numerical units are measured in
+\setlength{\parindent}{0pt} % Stop paragraph indentation
+
+\renewcommand{\dots}{\ \dotfill{}\ } % Fills in the right amount of dots
+
+\newcommand{\command}[2]{#1~\dotfill{}~#2\\} % Custom command for adding a shorcut
+
+\newcommand{\sectiontitle}[1]{\paragraph{#1} \ \\} % Custom command for subsection titles
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{picture}(297,210) % Create a container for the page content
+
+
+%----------------------------------------------------------------------------------------
+%	FIRST COLUMN SPECIFICATION
+%----------------------------------------------------------------------------------------
+
+\put(5,205){ % Divide the page
+\begin{minipage}[t]{92mm} % Create a box to house text
+
+%----------------------------------------------------------------------------------------
+%	HEADING ONE
+%----------------------------------------------------------------------------------------
+
+\paragraph{Regression} Let's say a given system has $p$ inputs and one output. Looking at the the historical inputs $\{ x_1, \ldots, x_n \}$ (each might be a vector) and the corresponding outputs $\{ y_1, \ldots, y_n \}$, we would like to make a guess what $y_i$ will be for an a new $x_i$.
+
+\paragraph{Simple Linear Regression} In simple linear regression, there is only one input and our guess of $y_i$ will be given by the following:
+\begin{equation*}
+y_i = \beta_0 \beta_1 x_i + \epsilon_i 
+\end{equation*}
+Where $E(\epsilon_i) = 0$ and the variance of $\epsilon$ is $\sigma_2$.
+
+The mean of the observed inputs is
+\begin{equation*}
+\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}
+\end{equation*}
+
+The mean of the observed outputs is
+\begin{equation*}
+\bar{y} = \frac{\sum_{i=1}^{n} y_i}{n}
+\end{equation*}
+
+
+\paragraph{Least Squared Estimate (SLR)} 
+\begin{equation*}
+S_{xy} = \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) 
+\end{equation*}
+\begin{equation*}
+S_{xx} = \sum_{i=1}^{n} (x_i - \bar{x})^2 
+\end{equation*}
+\begin{equation*}
+\hat{\beta_1} = \frac{S_{xy}}{S_{xx}} 
+\end{equation*}
+
+Using $\beta_1$, you can estimate $\beta_0$:
+\begin{equation*}
+\hat{\beta_0} = \bar{y} - \hat{\beta_1}\bar{x}
+\end{equation*}
+
+The prediction for $x_i$ is
+\begin{equation*}
+\hat{y_i} = \bar{\beta_0} + \hat{\beta_1}x_i
+\end{equation*}
+
+The prediction error (or residual) is
+\begin{equation*}
+\hat{\epsilon_i} = y_i - \hat{y_i}
+\end{equation*}
+
+
+
+\end{minipage} % End the first column of text
+} % End the first division of the page
+
+%----------------------------------------------------------------------------------------
+%	SECOND COLUMN SPECIFICATION 
+%----------------------------------------------------------------------------------------
+
+\put(100,205){ % Divide the page
+\begin{minipage}[t]{92mm} % Create a box to house text
+
+\paragraph{ANOVA}
+\begin{equation*}
+SST = S_{yy} = \sum_{i=1}^{n} (y_i - \bar{y})^2  = SSR + SSE
+\end{equation*}
+(SST has $n-1$ degrees of freedom) Note that
+\begin{equation*}
+SSR = \hat{\beta_1} S_{xy} = SST - SSE
+\end{equation*}
+(SSR has 1 degree of freedom) and
+\begin{equation*}
+SSE = \sum_{i=1}^{n} \hat{\epsilon_i}^2  = SST + SSR
+\end{equation*}
+(SSE has $n -2$ degrees of freedom).
+
+\begin{equation*}
+MSR = \frac{SSR}{df(SSR)}
+\end{equation*}
+
+\begin{equation*}
+\hat{\sigma}^2 = MSE = \frac{SSE}{df(SSE)}
+\end{equation*}
+
+\begin{equation*}
+F statistic = \frac{MSR}{MSE}
+\end{equation*}
+which follows Snedecor's F-distribution with $df_1 = df(SSR)$ and $df_2 = df(SSE)$. The p-value is the tail probability of the observed F-statistic. Anything smaller than 0.05 is pretty good.
+
+\begin{equation*}
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST} = \hat{\beta_1}^2 \frac{S_{xx}}{S_{yy}} = \hat{\beta_1}\frac{S_{xy}}{S_{yy}}
+\end{equation*}
+
+\paragraph{Quality of Parameters}
+The standard error of our estimate of $\hat{\beta_1}$ is
+\begin{equation*}
+s.e.(\hat{\beta_1}) = \sqrt{\frac{\hat{\sigma}^2 }{S_{xx}}}
+\end{equation*}
+The T-statistic for $\hat{\beta_1}$:
+\begin{equation*}
+\frac{\hat{\beta_1}}{s.e.(\hat{\beta_1})}
+\end{equation*}
+which follows Student's distribution with $df = n - 2$. The p-value is the tail probability of the observed t-statistic. Once again, anything smaller than 0.05 is pretty good.
+
+\end{minipage} % End the second column of text
+} % End the second division of the page
+
+%----------------------------------------------------------------------------------------
+%	THIRD COLUMN SPECIFICATION 
+%----------------------------------------------------------------------------------------
+
+\put(195,205){ % Divide the page
+\begin{minipage}[t]{94mm} % Create a box to house tex
+
+\paragraph{Confidence Interval of Expectation} The prediction of the mean response at $x = x_0$ is given by
+\begin{equation*}
+E(Y) = \hat{y_0} = \hat{\beta_0} + \hat{\beta_1} x_0
+\end{equation*}
+
+
+The standard error of the prediction of $E(Y)$ at $x_0$ is given by
+\begin{equation*}
+s.e.(prediction) = \sqrt{\hat{\sigma}^2 \left( \frac{1}{n} + \frac{x_0 - \bar{x}^2}{S_{xx}}\right)}
+\end{equation*}
+
+Thus, $100(1-\alpha)$ confidence interval of $E(Y)$ at $x = x_0$ is 
+\begin{equation*}
+Point Predition \pm \left( t_{\alpha/2, df=n-2}\right) \left(s.e.(prediction) \right)
+\end{equation*}
+
+\paragraph{Confidence Interval of New Observation} The prediction is the same. But the standard error is bigger:
+\begin{equation*}
+s.e.(prediction) = \sqrt{\hat{\sigma}^2 \left( 1 + \frac{1}{n} + \frac{x_0 - \bar{x}^2}{S_{xx}}\right)}
+\end{equation*}
+
+The confidence interval is calculated the same as above using the t-distribution.
+
+\paragraph{Adjusted $R^2$}
+\begin{equation*}
+R_{adj}^2 = 1 - \left(1 - R^2\right)\frac{n - 1}{n - k - 1}
+\end{equation*}
+where $k$ is the number of parameters.
+
+\paragraph{Variance Inflation Factor}
+For a variable $X_j$ that is suspected of being correlated with other variables, we remove it if its VIF is greater than 5.
+\begin{equation*}
+VIF(X_j) = \frac{1}{1 - R_{j}^2}
+\end{equation*}
+where $R_j^2$ is the $R^2$ of the regression run without $X_j$.
+
+\paragraph{MLR in matrices} Let $X$ be the matrix where the inputs for each sample are a row and the first item in the row is 1. Let $Y$ be the column vector of outputs. Let $\beta$ be the column vector of coefficients. Let $\Sigma$ be a column vector of residuals.
+\begin{equation*}
+Y = X\beta + \Sigma
+\end{equation*}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{minipage} % End the third column of text
+} % End the third division of the page
+\end{picture} % End the container for the entire page
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
